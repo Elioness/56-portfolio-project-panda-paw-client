@@ -1,14 +1,11 @@
 export const selectToken = (state) => state.user.token;
 
 export const selectUser = (state) => state.user;
-
-export const selectTables = (reduxState) => reduxState.user.tables;
-
-export const selectReservations = (reduxState) => reduxState.user.reservations;
-
-export const selectReservationsWithUsers = (reduxState) =>
-  reduxState.user.reservationsWithUser;
-
-export const selectAllUser = (state) => state.user.users;
-
-export const selectIsAccountBlocked = (state) => state.user.accountBlocked;
+export const selectUserId = (state) => state.user.id;
+export const selectUserEmissions = (state) => state.user.userEmissions;
+export const selectTranspoFootprints = (state) =>
+  state.user.userEmissions.transpoFootprints;
+export const selectElectricityFootprints = (state) =>
+  state.user.userEmissions.electricityFootprints;
+export const selectPlantOffsets = (state) =>
+  state.user.userEmissions.plantOffsets;

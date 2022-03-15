@@ -22,15 +22,13 @@ export default function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
-          {user.isAdmin && (
+          {token && <NavbarItem path="/myPaw" linkText="My Paw Space" />},
+          {/* {token && (
             <NavbarItem
               path="/admin/reservations"
               linkText="View Reservations"
             />
-          )}
-          {user.isAdmin && (
-            <NavbarItem path="/admin/users" linkText="Manage Users" />
-          )}
+          )} */}
           {loginLogoutControls}
         </Nav>
       </Navbar.Collapse>

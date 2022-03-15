@@ -29,3 +29,7 @@ export const calculateTranspoPlane = (mi) => {
 export const calculatePlantOffset = (plant) => {
   return plant * 0.000232;
 };
+
+export const calculateElectricity = (consumption) => {
+  return consumption * 0.429;
+};

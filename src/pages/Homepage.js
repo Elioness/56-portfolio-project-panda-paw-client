@@ -18,7 +18,7 @@ export default function Homepage() {
   const [carMiles, setCarMiles] = useState(0);
   const [planeMiles, setPlaneMiles] = useState(0);
   //console.log("foot", footMiles);
-  const [totalTranspoEMilesssion, setTotalTranspoEMilesssion] = useState(0);
+  const [totalTranspoEmisssion, setTotalTranspoEmisssion] = useState(0);
 
   const [plantQuantity, setPlantQuantity] = useState(0);
   const [plantOffset, setPlantOffset] = useState(0);
@@ -28,6 +28,7 @@ export default function Homepage() {
 
   const state = useSelector(selectState);
   console.log("state", state);
+
   useEffect(() => {}, []);
 
   return (
@@ -86,7 +87,7 @@ export default function Homepage() {
               <button
                 style={{ margin: "5px" }}
                 onClick={() => {
-                  setTotalTranspoEMilesssion(
+                  setTotalTranspoEmisssion(
                     calculateTranspoFoot(parseInt(footMiles)) +
                       calculateTranspoEmissionGasoline(parseInt(carMiles)) +
                       calculateTranspoTrain(parseInt(trainMiles)) +
@@ -103,7 +104,7 @@ export default function Homepage() {
               <div>
                 <p>
                   Your transportation total Carbon Emission is:{" "}
-                  {totalTranspoEMilesssion}
+                  <strong>{totalTranspoEmisssion.toFixed(4)}</strong> kgs
                 </p>
               </div>
             )}
@@ -142,8 +143,8 @@ export default function Homepage() {
               <div>
                 <p>
                   {" "}
-                  Your plants offset you carbon footprint by{" "}
-                  <strong>{plantOffset}</strong> kgs every 24 hours
+                  Your plants offset your carbon footprint by{" "}
+                  <strong>{plantOffset.toFixed(4)}</strong> kgs every 24 hours
                 </p>
               </div>
             )}

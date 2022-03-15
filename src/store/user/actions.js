@@ -25,37 +25,9 @@ const tokenStillValid = (userWithoutToken) => ({
   payload: userWithoutToken,
 });
 
-export function tablesFetched(data) {
+export function userEmissionsFetched(data) {
   return {
-    type: "user/getAllTables",
-    payload: data,
-  };
-}
-
-export function reservationsFetched(data) {
-  return {
-    type: "user/getAllReservations",
-    payload: data,
-  };
-}
-
-export function createNewReservationSuccess(newReservation) {
-  return {
-    type: "user/createNewReservationSuccess",
-    payload: newReservation,
-  };
-}
-
-export function reservationsAndUsersFetched(data) {
-  return {
-    type: "user/reservationsAndUsersFetched",
-    payload: data,
-  };
-}
-
-export function allUsersFetched(data) {
-  return {
-    type: "user/getAllUsers",
+    type: "user/userEmissionsFetched",
     payload: data,
   };
 }
@@ -146,106 +118,17 @@ export const getUserWithStoredToken = () => {
   };
 };
 
-export function deletedReservation(id) {
-  return {
-    type: "user/deletedReservation",
-    payload: id,
-  };
-}
-
-export function patchedAccountBlocked(data) {
-  return {
-    type: "user/patchAccountBlocked",
-    payload: data,
-  };
-}
-
-//POST new Reservation
-export const postNewReservation = (date, tableId) => {
-  return async (dispatch, getState) => {
-    try {
-      const { token } = selectUser(getState());
-      const response_newReservation = await axios.post(
-        `${apiUrl}/reservation/newReservation`,
-        {
-          date: date,
-          tableId: tableId,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      //console.log("post new story", response);
-      dispatch(createNewReservationSuccess(response_newReservation.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-//DELETE a reservation
-export function deleteReservation(id) {
-  return async function deleteStoryThunk(dispatch, getState) {
-    try {
-      const { token } = selectUser(getState());
-      const response = await axios.delete(`${apiUrl}/reservation/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log("This reservation has been deleted", response);
-
-      dispatch(deletedReservation(id));
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-}
-
-//PATCH new AccountBlocked
-export const patchAccountBlocked = (accountBlocked) => {
-  return async (dispatch, getState) => {
-    try {
-      const { token, accountBlocked } = selectUser(getState());
-
-      const response_accountBlocked = await axios.update(
-        `${apiUrl}/users/accountBlocked`,
-        {
-          accountBlocked: !accountBlocked,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      //console.log("post new story", response);
-      dispatch(patchedAccountBlocked(response_accountBlocked.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 //GET endpoints
 //Get token for isAdmin
-export default async function fetchPosts(dispatch, getState) {
-  const response = await axios.get(`${apiUrl}/table`);
+export default function fetchUserEmissions() {
+  return async function thunk(dispatch, getState) {
+    const { token } = selectUser(getState());
 
-  const { token } = selectUser(getState());
-  //console.log("tables w reservations fetched", response.data);
-  dispatch(tablesFetched(response.data));
-
-  const response_reservations = await axios.get(`${apiUrl}/reservation`);
-  dispatch(reservationsFetched(response_reservations.data));
-
-  const response_reservationsAndUsers = await axios.get(
-    `${apiUrl}/reservation/allReservations`,
-    {
+    const response_userEmission = await axios.get(`${apiUrl}/user`, {
       headers: { Authorization: `Bearer ${token}` },
-    }
-  );
-  //console.log(" User with reservations", response_reservationsAndUsers);
-  dispatch(reservationsAndUsersFetched(response_reservationsAndUsers.data));
+    });
+    //console.log("user emision", response_userEmission);
 
-  const response_allUsers = await axios.get(`${apiUrl}/users`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  dispatch(allUsersFetched(response_allUsers.data));
+    dispatch(userEmissionsFetched(response_userEmission));
+  };
 }
