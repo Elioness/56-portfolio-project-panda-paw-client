@@ -17,6 +17,7 @@ import {
   calculateElectricity,
   calculatePlantOffset,
 } from "../../src/functions";
+
 export default function MyPaw() {
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ export default function MyPaw() {
   if (!userEmissions || !transpo) {
     return <Loading />;
   }
+
   let totalEmission = 0;
   return (
     <div>

@@ -25,13 +25,6 @@ const tokenStillValid = (userWithoutToken) => ({
   payload: userWithoutToken,
 });
 
-export function userEmissionsFetched(data) {
-  return {
-    type: "user/userEmissionsFetched",
-    payload: data,
-  };
-}
-
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (name, email, password) => {
@@ -118,6 +111,121 @@ export const getUserWithStoredToken = () => {
   };
 };
 
+export function userEmissionsFetched(data) {
+  return {
+    type: "user/userEmissionsFetched",
+    payload: data,
+  };
+}
+
+export function submitNewTranspoFootprint(data) {
+  return {
+    type: "user/submitNewTranspoFootprint",
+    payload: data,
+  };
+}
+
+export function submitNewElecFootprint(data) {
+  return {
+    type: "user/submitNewElecFootprint",
+    payload: data,
+  };
+}
+
+export function submitNewPlantOffset(data) {
+  return {
+    type: "user/submitNewEPlantOffset",
+    payload: data,
+  };
+}
+
+//POST new Transpo
+export const postNewTranspoFootprint = ({
+  title,
+  footBikeDistance,
+  trainDistance,
+  carDistance,
+  planeDistance,
+  footBikeDays,
+  trainDays,
+  carDays,
+  planeDays,
+}) => {
+  console.log("what is title?", title);
+  return async (dispatch, getState) => {
+    try {
+      const { token } = selectUser(getState());
+      const response_newTranspoFootprint = await axios.post(
+        `${apiUrl}/user/submitEmissionTranspo`,
+        {
+          title: title,
+          footBikeDistance: footBikeDistance,
+          trainDistance: trainDistance,
+          carDistance: carDistance,
+          planeDistance: planeDistance,
+          footBikeDays: footBikeDays,
+          trainDays: trainDays,
+          carDays: carDays,
+          planeDays: planeDays,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("post new", response_newTranspoFootprint);
+      dispatch(submitNewTranspoFootprint(response_newTranspoFootprint.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POST new Elec
+export const postNewElecFootprint = ({ consumption }) => {
+  console.log("what is consumption?", consumption);
+  return async (dispatch, getState) => {
+    try {
+      const { token } = selectUser(getState());
+      const response_newElecFootprint = await axios.post(
+        `${apiUrl}/user/submitEmissionElectricity`,
+        {
+          consumption,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("post new", response_newElecFootprint);
+      dispatch(submitNewElecFootprint(response_newElecFootprint.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+//POST new Plant
+export const postNewPlantOffset = ({ plants }) => {
+  console.log("what is consumption?", plants);
+  return async (dispatch, getState) => {
+    try {
+      const { token } = selectUser(getState());
+      const response_newPlantOffset = await axios.post(
+        `${apiUrl}/user/submitPlantOffset`,
+        {
+          plants,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("post new", response_newPlantOffset);
+      dispatch(submitNewPlantOffset(response_newPlantOffset.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 //GET endpoints
 //Get token for isAdmin
 export default function fetchUserEmissions() {
@@ -127,7 +235,6 @@ export default function fetchUserEmissions() {
     const response_userEmission = await axios.get(`${apiUrl}/user`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    //console.log("user emision", response_userEmission);
 
     dispatch(userEmissionsFetched(response_userEmission));
   };
