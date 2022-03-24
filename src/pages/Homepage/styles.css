@@ -1,0 +1,24 @@
+.intro {
+  background-color: #fbfbf1;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.homepageCal {
+  background-color: #fbfbf1;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: right;
+}
+
+.transpoWrap {
+  flex-direction: row;
+  flex-wrap: wrap;
+}

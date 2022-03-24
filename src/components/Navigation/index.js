@@ -11,7 +11,7 @@ import LoggedOut from "./LoggedOut";
 export default function Navigation() {
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
-  //console.log("isAdmin", isAdmin);
+
   const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   return (
@@ -22,13 +22,7 @@ export default function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
-          {token && <NavbarItem path="/myPaw" linkText="My Paw Space" />},
-          {/* {token && (
-            <NavbarItem
-              path="/admin/reservations"
-              linkText="View Reservations"
-            />
-          )} */}
+          {token && <NavbarItem path="/myPaw" linkText="My Paw Space" />}
           {loginLogoutControls}
         </Nav>
       </Navbar.Collapse>

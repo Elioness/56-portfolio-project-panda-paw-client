@@ -13,8 +13,8 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
 //MY PAGES
-import Homepage from "./pages/Homepage";
-import MyPaw from "./pages/MyPaw";
+import Homepage from "./pages/Homepage/Homepage";
+import MyPaw from "./pages/MyPaw/MyPaw";
 
 function App() {
   const dispatch = useDispatch();
