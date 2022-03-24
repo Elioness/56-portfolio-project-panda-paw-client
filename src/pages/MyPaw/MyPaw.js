@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Loading from "../../components/Loading";
@@ -8,6 +8,7 @@ import {
   selectElectricityFootprints,
   selectTranspoFootprints,
   selectPlantOffsets,
+  selectGoal,
 } from "../../store/user/selectors";
 import {
   calculateTranspoFoot,
@@ -18,8 +19,12 @@ import {
   calculatePlantOffset,
 } from "../../../src/functions";
 
+import Goal from "../../components/Goal/Goal";
+
 export default function MyPaw() {
   const dispatch = useDispatch();
+
+  const goal = useSelector(selectGoal);
 
   useEffect(() => {
     dispatch(fetchUserEmissions());
@@ -31,6 +36,8 @@ export default function MyPaw() {
   const plant = useSelector(selectPlantOffsets);
   console.log("emission of any sort", userEmissions);
 
+  const [showForm, setShowForm] = useState(false);
+
   if (!userEmissions || !transpo) {
     return <Loading />;
   }
@@ -40,9 +47,17 @@ export default function MyPaw() {
     <div>
       <h4>{userEmissions.name}'s CO2 Monthly Allocation </h4>
       <p>
-        Your <strong>Goal</strong>: {userEmissions.goal} CO2 Kgs is attainable.
-        You can do it!
+        Your <strong>Goal</strong>: {goal} CO2 Kgs is attainable. You can do it!
       </p>
+      <div>
+        <button
+          style={{ margin: "5px" }}
+          onClick={() => setShowForm(!showForm)}
+        >
+          Change my goal
+        </button>
+        {showForm && <Goal />}
+      </div>
 
       <div></div>
       <div>
@@ -71,7 +86,7 @@ export default function MyPaw() {
           totalEmission += totalElectricityEmission;
           return (
             <div>
-              <p>Electricit Emission: {totalElectricityEmission} CO2 Kgs</p>
+              <p>Electricity Emission: {totalElectricityEmission} CO2 Kgs</p>
             </div>
           );
         })}

@@ -139,6 +139,13 @@ export function submitNewPlantOffset(data) {
   };
 }
 
+export function updatedUserGoal(newGoal) {
+  return {
+    type: "user/updatedUserGoal",
+    payload: newGoal,
+  };
+}
+
 //POST new Transpo
 export const postNewTranspoFootprint = ({
   title,
@@ -227,7 +234,6 @@ export const postNewPlantOffset = ({ plants }) => {
 };
 
 //GET endpoints
-//Get token for isAdmin
 export default function fetchUserEmissions() {
   return async function thunk(dispatch, getState) {
     const { token } = selectUser(getState());
@@ -239,3 +245,29 @@ export default function fetchUserEmissions() {
     dispatch(userEmissionsFetched(response_userEmission));
   };
 }
+
+//Patch user goal
+export const updateGoal = (newGoal) => {
+  return async (dispatch, getState) => {
+    try {
+      const { token } = selectUser(getState());
+      const response = await axios.patch(
+        `${apiUrl}/user/${newGoal}`,
+        {
+          goal: newGoal,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updatedUserGoal(response.data));
+    } catch (error) {
+      if (error.message) {
+        console.log(error.response.message);
+      } else {
+        console.log(error);
+      }
+    }
+  };
+};

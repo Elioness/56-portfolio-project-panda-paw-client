@@ -9,3 +9,5 @@ export const selectElectricityFootprints = (state) =>
   state.user.userEmissions.electricityFootprints;
 export const selectPlantOffsets = (state) =>
   state.user.userEmissions.plantOffsets;
+
+export const selectGoal = (state) => state.user.goal;

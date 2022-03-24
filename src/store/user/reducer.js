@@ -26,6 +26,14 @@ export default function reducer(state = initialState, action) {
         ...state,
         userEmissions: action.payload.data,
       };
+
+    case "user/updatedUserGoal":
+      console.log("updatedGoal", action.payload);
+      return {
+        ...state,
+        goal: action.payload,
+      };
+
     default:
       return state;
   }
