@@ -1,9 +1,8 @@
 import { useState } from "react";
-
-//Feature 5.3 import useDispatch and the thunk action
 import { useDispatch } from "react-redux";
 import { updateGoal } from "../../store/user/actions";
 import Loading from "../Loading";
+import Button from "react-bootstrap/Button";
 
 export default function Goal() {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ export default function Goal() {
           <br />
         </p>
 
-        <button type="submit">Submit new goal</button>
+        <Button type="submit">Submit new goal</Button>
       </form>
     </div>
   );

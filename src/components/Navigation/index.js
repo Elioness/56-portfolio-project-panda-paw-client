@@ -7,6 +7,7 @@ import { selectToken } from "../../store/user/selectors";
 import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
+import "./styles.css";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
@@ -14,7 +15,7 @@ export default function Navigation() {
   const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg" className="navbar">
       <Navbar.Brand as={NavLink} to="/">
         Panda Paw
       </Navbar.Brand>

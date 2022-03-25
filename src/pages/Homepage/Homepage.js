@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectState } from "../../store/calculator/selector";
 import { selectToken } from "../../store/user/selectors";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 import {
   postNewTranspoFootprint,
@@ -202,7 +203,8 @@ export default function Homepage() {
             </p>
           </ul>
           <p>
-            <button
+            <Button
+              variant="primary"
               style={{ margin: "5px" }}
               onClick={() => {
                 setTotalTranspoEmisssion(
@@ -214,10 +216,10 @@ export default function Homepage() {
                 );
                 setShowCalculationTranspo(!showCalculationTranspo);
               }}
-              type="button"
+              type="Button"
             >
               Calculate
-            </button>
+            </Button>
           </p>
           {showCalculationTranspo && (
             <div>
@@ -225,9 +227,12 @@ export default function Homepage() {
                 Your transportation total Carbon Emission is:{" "}
                 <strong>{totalTranspoEmisssion.toFixed(4)}</strong> kgs <br />
                 {token && (
-                  <button onClick={(event) => onClickSubmitTranspo(event)}>
+                  <Button
+                    variant="primary"
+                    onClick={(event) => onClickSubmitTranspo(event)}
+                  >
                     Submit
-                  </button>
+                  </Button>
                 )}
               </p>
             </div>
@@ -250,7 +255,8 @@ export default function Homepage() {
               />
             </p>
             <p>
-              <button
+              <Button
+                variant="primary"
                 style={{ margin: "5px" }}
                 onClick={() => {
                   setShowCalculationElec(!showCalculationElec);
@@ -259,10 +265,10 @@ export default function Homepage() {
                     calculateElectricity(parseInt(electricityConsumption))
                   );
                 }}
-                type="button"
+                type="Button"
               >
                 Calculate
-              </button>
+              </Button>
             </p>
             {showCalculationElec && (
               <div>
@@ -272,9 +278,12 @@ export default function Homepage() {
                   <strong>{electricityEmission.toFixed(4)}</strong> kgs
                   <br />
                   {token && (
-                    <button onClick={(event) => onClickSubmitElec(event)}>
+                    <Button
+                      variant="primary"
+                      onClick={(event) => onClickSubmitElec(event)}
+                    >
                       Submit
-                    </button>
+                    </Button>
                   )}
                 </p>
               </div>
@@ -298,17 +307,17 @@ export default function Homepage() {
               />
             </p>
             <p>
-              <button
+              <Button
                 style={{ margin: "5px" }}
                 onClick={() => {
                   setShowCalculationPlant(!showCalculationPlant);
 
                   setPlantOffset(calculatePlantOffset(parseInt(plantQuantity)));
                 }}
-                type="button"
+                type="Button"
               >
                 Calculate
-              </button>
+              </Button>
             </p>
             {showCalculationPlant && (
               <div>
@@ -318,9 +327,9 @@ export default function Homepage() {
                   <strong>{plantOffset.toFixed(4)}</strong> kgs every 24 hours
                   <br />
                   {token && (
-                    <button onClick={(event) => onClickSubmitPlant(event)}>
+                    <Button onClick={(event) => onClickSubmitPlant(event)}>
                       Submit
-                    </button>
+                    </Button>
                   )}
                 </p>
               </div>
@@ -330,7 +339,7 @@ export default function Homepage() {
       </div>
       <div className="pawSpaceButton">
         <Link to={"/myPaw"}>
-          <button style={{ margin: "50px" }}>Go to My Paw Space</button>
+          <Button style={{ margin: "50px" }}>Go to My Paw Space</Button>
         </Link>
       </div>
     </div>

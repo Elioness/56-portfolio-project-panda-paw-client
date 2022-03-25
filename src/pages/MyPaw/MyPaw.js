@@ -18,6 +18,7 @@ import {
   calculateElectricity,
   calculatePlantOffset,
 } from "../../../src/functions";
+import Button from "react-bootstrap/Button";
 
 import PolarChart from "../../components/myPawPolarChart/PolarChart";
 import Goal from "../../components/Goal/Goal";
@@ -78,12 +79,12 @@ export default function MyPaw() {
         Your <strong>Goal</strong>: {goal} CO2 Kgs is attainable. You can do it!
       </p>
       <div>
-        <button
+        <Button
           style={{ margin: "5px" }}
           onClick={() => setShowForm(!showForm)}
         >
           Change my goal
-        </button>
+        </Button>
         {showForm && <Goal />}
       </div>
 

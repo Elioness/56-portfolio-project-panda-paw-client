@@ -1,0 +1,27 @@
+.navbar {
+  background-color: #6e6ec7;
+  height: 100%;
+  width: 100%;
+}
+
+/* .navItem {
+  flex: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+} */
+
+/* .navbar a {
+  font-family: "Knewave", cursive;
+  font-size: 25px;
+  color: #fbfbf1;
+  text-decoration: none;
+  margin: 20px;
+} */
+
+.navbar a:hover {
+  background-color: #107910;
+  color: #191923;
+  border-radius: 15px;
+  padding: 9px;
+}
