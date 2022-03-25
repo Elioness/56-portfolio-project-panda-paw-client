@@ -2,6 +2,7 @@
   background-color: #fbfbf1;
   padding-top: 18px;
   padding-bottom: 18px;
+  padding-left: 18px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -12,6 +13,7 @@
   background-color: #fbfbf1;
   padding-top: 18px;
   padding-bottom: 18px;
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -21,4 +23,15 @@
 .transpoWrap {
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.pawSpaceButton {
+  background-color: #fbfbf1;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }

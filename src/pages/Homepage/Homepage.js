@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectState } from "../../store/calculator/selector";
 import { selectToken } from "../../store/user/selectors";
+import { Link } from "react-router-dom";
 
 import {
   postNewTranspoFootprint,
@@ -326,6 +327,11 @@ export default function Homepage() {
             )}
           </ul>
         </form>
+      </div>
+      <div className="pawSpaceButton">
+        <Link to={"/myPaw"}>
+          <button style={{ margin: "50px" }}>Go to My Paw Space</button>
+        </Link>
       </div>
     </div>
   );

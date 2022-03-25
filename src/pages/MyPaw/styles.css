@@ -1,0 +1,10 @@
+.myPaw {
+  background-color: #fbfbf1;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: right;
+}

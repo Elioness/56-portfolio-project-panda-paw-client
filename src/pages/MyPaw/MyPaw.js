@@ -19,7 +19,9 @@ import {
   calculatePlantOffset,
 } from "../../../src/functions";
 
+import PolarChart from "../../components/myPawPolarChart/PolarChart";
 import Goal from "../../components/Goal/Goal";
+import "./styles.css";
 
 export default function MyPaw() {
   const dispatch = useDispatch();
@@ -43,8 +45,34 @@ export default function MyPaw() {
   }
 
   let totalEmission = 0;
+  let totalTranspoEmission = 0;
+  let totalElectricityEmission = 0;
+  let totalPlantOffset = 0;
+
+  transpo.map((transpo) => {
+    const currentTranspoEmission =
+      calculateTranspoFoot(transpo.footBikeDistance) * transpo.footBikeDays +
+      calculateTranspoEmissionGasoline(transpo.carDistance) * transpo.carDays +
+      calculateTranspoTrain(transpo.trainDistance) * transpo.trainDays +
+      calculateTranspoPlane(transpo.planeDistance) * transpo.planeDays;
+    totalEmission += currentTranspoEmission;
+    totalTranspoEmission += currentTranspoEmission;
+  });
+
+  electricity.map((c) => {
+    const currentElectricityEmission = calculateElectricity(c.consumption);
+    totalEmission += currentElectricityEmission;
+    totalElectricityEmission += currentElectricityEmission;
+  });
+
+  plant.map((p) => {
+    const currentPlantOffset = calculatePlantOffset(p.plants);
+    totalEmission -= currentPlantOffset;
+    totalPlantOffset += currentPlantOffset;
+  });
+
   return (
-    <div>
+    <div className="myPaw">
       <h4>{userEmissions.name}'s CO2 Monthly Allocation </h4>
       <p>
         Your <strong>Goal</strong>: {goal} CO2 Kgs is attainable. You can do it!
@@ -59,22 +87,41 @@ export default function MyPaw() {
         {showForm && <Goal />}
       </div>
 
-      <div></div>
+      <div>
+        <PolarChart
+          emissionLabels={[
+            "Transportation Footprint",
+            "Electricity Footprint",
+            "PlantOffset",
+          ]}
+          emission={[
+            totalTranspoEmission,
+            totalElectricityEmission,
+            totalPlantOffset,
+          ]}
+        />
+      </div>
+
+      <div>
+        <h4>Monthly Carbon Emission: {totalEmission.toFixed(3)}</h4>
+        <h4>Daily Average Emission:{(totalEmission / 30).toFixed(3)}</h4>
+      </div>
+
       <div>
         {transpo.map((transpo) => {
-          const totalTranspoEmission =
+          const currentTranspoEmission =
             calculateTranspoFoot(transpo.footBikeDistance) *
               transpo.footBikeDays +
             calculateTranspoEmissionGasoline(transpo.carDistance) *
               transpo.carDays +
             calculateTranspoTrain(transpo.trainDistance) * transpo.trainDays +
             calculateTranspoPlane(transpo.planeDistance) * transpo.planeDays;
-          totalEmission += totalTranspoEmission;
+          console.log(transpo);
           return (
             <div>
               <p>
                 {transpo.title} has emitted: <br />
-                {totalTranspoEmission} CO2 Kgs
+                {currentTranspoEmission.toFixed(3)} CO2 Kgs
               </p>
             </div>
           );
@@ -83,10 +130,12 @@ export default function MyPaw() {
       <div>
         {electricity.map((c) => {
           const totalElectricityEmission = calculateElectricity(c.consumption);
-          totalEmission += totalElectricityEmission;
           return (
             <div>
-              <p>Electricity Emission: {totalElectricityEmission} CO2 Kgs</p>
+              <p>
+                Electricity Emission: {totalElectricityEmission.toFixed(3)} CO2
+                Kgs
+              </p>
             </div>
           );
         })}
@@ -94,16 +143,14 @@ export default function MyPaw() {
       <div>
         {plant.map((p) => {
           const totalPlantOffset = calculatePlantOffset(p.plants);
-          totalEmission -= totalPlantOffset;
+
           return (
             <div>
-              <p>Plant Offset: {totalPlantOffset}</p>
+              <p>Plant Offset: {totalPlantOffset.toFixed(3)}</p>
             </div>
           );
         })}
       </div>
-      <h4>Monthly Carbon Emission: {totalEmission}</h4>
-      <h4>Daily Average Emission:{totalEmission / 30}</h4>
     </div>
   );
 }
