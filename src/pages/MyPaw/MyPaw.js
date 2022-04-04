@@ -122,7 +122,13 @@ export default function MyPaw() {
             <div>
               <p>
                 {transpo.title} has emitted: <br />
-                {currentTranspoEmission.toFixed(3)} CO2 Kgs
+                {currentTranspoEmission.toFixed(3)} CO2 Kgs{" "}
+                <Button
+                  style={{ margin: "5px" }}
+                  onClick={() => console.log("Delete clicked")}
+                >
+                  delete
+                </Button>
               </p>
             </div>
           );
@@ -135,7 +141,13 @@ export default function MyPaw() {
             <div>
               <p>
                 Electricity Emission: {totalElectricityEmission.toFixed(3)} CO2
-                Kgs
+                Kgs{" "}
+                <Button
+                  style={{ margin: "5px" }}
+                  onClick={() => console.log("Delete clicked")}
+                >
+                  delete
+                </Button>
               </p>
             </div>
           );
@@ -147,7 +159,15 @@ export default function MyPaw() {
 
           return (
             <div>
-              <p>Plant Offset: {totalPlantOffset.toFixed(3)}</p>
+              <p>
+                Plant Offset: {totalPlantOffset.toFixed(3)}{" "}
+                <Button
+                  style={{ margin: "5px" }}
+                  onClick={() => console.log("Delete clicked")}
+                >
+                  delete
+                </Button>
+              </p>
             </div>
           );
         })}
