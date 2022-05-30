@@ -271,3 +271,20 @@ export const updateGoal = (newGoal) => {
     }
   };
 };
+
+//DELETE Transpo emission
+export function deleteTranspoEmission(id) {
+  return async function deleteThunk(dispatch, getState) {
+    try {
+      const { token } = selectUser(getState());
+      const response = await axios.delete(`${apiUrl}/user/delete/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("This transpo emission has been deleted", response);
+
+      //dispatch(deletedTranspoEmission(id));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}

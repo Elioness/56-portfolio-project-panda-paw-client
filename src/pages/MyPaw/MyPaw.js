@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Loading from "../../components/Loading";
-import fetchUserEmissions from "../../store/user/actions";
+import fetchUserEmissions, {
+  deleteTranspoEmission,
+} from "../../store/user/actions";
 import {
   selectUserEmissions,
   selectElectricityFootprints,
@@ -28,6 +30,10 @@ export default function MyPaw() {
   const dispatch = useDispatch();
 
   const goal = useSelector(selectGoal);
+
+  const onClickDeleteTranspoEmission = (id) => {
+    dispatch(deleteTranspoEmission(id));
+  };
 
   useEffect(() => {
     dispatch(fetchUserEmissions());
@@ -117,7 +123,7 @@ export default function MyPaw() {
               transpo.carDays +
             calculateTranspoTrain(transpo.trainDistance) * transpo.trainDays +
             calculateTranspoPlane(transpo.planeDistance) * transpo.planeDays;
-          console.log(transpo);
+          console.log("transpo map", transpo);
           return (
             <div>
               <p>
@@ -125,7 +131,7 @@ export default function MyPaw() {
                 {currentTranspoEmission.toFixed(3)} CO2 Kgs{" "}
                 <Button
                   style={{ margin: "5px" }}
-                  onClick={() => console.log("Delete clicked")}
+                  onClick={() => onClickDeleteTranspoEmission(transpo.id)}
                 >
                   delete
                 </Button>
